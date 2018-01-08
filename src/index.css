@@ -1,5 +1,35 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 440px;
+    text-align: center;
+}
+.container h3 {
+    flex: 3 1 100%;
+}
+.container button {
+    flex: 3 1 100%;
+}
+
+.container .temperature {
+    flex: 1 1 33%;
+    font-size: 100px;
+}
+
+.container .info {
+    flex: 1 1 33%;
+}
+
+.container .icon {
+    flex: 1 1 33%;
+    font-size: 90px;
 }
