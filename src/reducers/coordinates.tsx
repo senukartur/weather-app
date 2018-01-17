@@ -1,14 +1,14 @@
 import * as constants from '../constants';
-import { GetCurrentUserCoordinatesAction } from '../actions/coordinates';
-import * as interfaces from '../interfaces';
+import { GetCoordinatesAction } from '../actions/coordinates';
+import { Coordinates } from '../interfaces';
 
-type Action = GetCurrentUserCoordinatesAction;
+type Action = GetCoordinatesAction;
 
-function coordinates(state: interfaces.Coordinates = {lat: 0, lon: 0}, action: Action): interfaces.Coordinates {
+function coordinates(state: Coordinates = {lat: 0, lon: 0}, action: Action): Coordinates {
     switch (action.type) {
-        case constants.GET_CURRENT_USER_COORDINATES_SUCCESS:
+        case constants.GET_COORDINATES_SUCCESS:
             return {...state, lat: action.coordinates.lat, lon: action.coordinates.lon };
-        case constants.GET_CURRENT_USER_COORDINATES_FAILED:
+        case constants.GET_COORDINATES_FAILED:
             return state;
         default:
             return state;

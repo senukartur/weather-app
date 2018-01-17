@@ -1,0 +1,12 @@
+.weather-finder-container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.weather-finder-container .coordinates-form,
+.weather-finder-container .location-form
+{
+    flex: 1 1 100%;
+    margin: 10px 0;
+}

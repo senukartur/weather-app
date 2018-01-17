@@ -11,8 +11,11 @@
   "dependencies": {
     "axios": "^0.17.1",
     "enzyme": "^2.7.1",
+    "font-awesome": "^4.7.0",
+    "material-ui": "^1.0.0-beta.27",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-flags-select": "^1.1.2",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
@@ -25,6 +28,7 @@
     "@types/react": "^16.0.33",
     "@types/react-dom": "^16.0.3",
     "@types/react-redux": "^4.4.36",
+    "@types/jss": "^9.3.0",
     "react-addons-test-utils": "^15.4.2",
     "react-scripts-ts": "2.8.0"
   }

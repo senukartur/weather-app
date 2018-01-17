@@ -6,30 +6,7 @@ body {
 
 .container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    width: 500px;
     margin: auto;
-    width: 440px;
-    text-align: center;
-}
-.container h3 {
-    flex: 3 1 100%;
-}
-.container button {
-    flex: 3 1 100%;
-}
-
-.container .temperature {
-    flex: 1 1 33%;
-    font-size: 100px;
-}
-
-.container .info {
-    flex: 1 1 33%;
-}
-
-.container .icon {
-    flex: 1 1 33%;
-    font-size: 90px;
 }

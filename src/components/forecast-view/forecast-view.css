@@ -1,0 +1,16 @@
+.forecast-view-container {
+    display: flex;
+}
+
+.forecast-view-container .forecast-item {
+    flex: 1 1 20%;
+    text-align: center;
+}
+
+.forecast-view-container .forecast-weather-icon {
+    font-size: 30px;
+}
+
+.forecast-view-container .forecast-temperature {
+    font-size: 30px;
+}

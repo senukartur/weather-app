@@ -1,7 +1,15 @@
 export interface ApplicationState {
     coordinates: Coordinates;
-    currentWeatherData: WeatherData;
+    location: Location;
+    currentWeatherData: WeatherData | null;
+    currentForecastData: ForecastData | null;
     favoriteCities: number[];
+    errorMessage: string;
+}
+
+export interface Location {
+    city: string;
+    countryCode: string;
 }
 
 export interface Coordinates {
@@ -49,4 +57,39 @@ export interface WeatherData {
     id: number;
     name: string;
     cod: number;
+}
+
+export interface Forecast {
+    dt: number;
+    main: {
+        temp: number;
+        temp_min: number;
+        temp_max: number;
+        pressure: number;
+        sea_level: number;
+        grnd_level: number;
+        humidity: number;
+        temp_kf: number;
+    };
+    weather: Weather[];
+    clouds: {
+        all: number;
+    };
+    wind: {
+        speed: number;
+        deg: number;
+    };
+    dt_txt: string;
+}
+
+export interface ForecastData {
+    code: string;
+    message: number;
+    city: {
+        id: number;
+        name: string;
+        coordinates: Coordinates;
+    };
+    cnt: number;
+    list: Forecast[];
 }
