@@ -6,8 +6,10 @@ export interface Props {
 }
 const WeatherIcon: React.SFC<Props> = ({ iconId, className }) => {
     return (
-        <div className={ className ? className : ''}>
-            <i className={`wi wi-owm-${iconId}`}></i>
+        <div className={className ? className : ''}>
+            <p className="text-center">
+                <i className={`wi wi-owm-${iconId}`} />
+            </p>
         </div>
     );
 };

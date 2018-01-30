@@ -1,35 +1,20 @@
 import { Dispatch } from 'redux';
 import { Location } from '../interfaces';
-import { GET_LOCATION_SUCCESS, GET_LOCATION_FAILED } from '../constants';
-import { getWeatherDataByLocation } from './weather';
+import { SET_LOCATION_SUCCESS } from '../constants';
 
-export interface GetLocationSuccess {
-    type: GET_LOCATION_SUCCESS;
+export interface SetLocationSuccess {
+    type: SET_LOCATION_SUCCESS;
     location: Location;
 }
-
-export interface GetLocationFailed {
-    type: GET_LOCATION_FAILED;
-}
-
-export type GetLocationAction = GetLocationSuccess | GetLocationFailed;
-
-export function getLocationSuccessAction(location: Location): GetLocationSuccess {
+export function setLocationSuccessAction(location: Location): SetLocationSuccess {
     return {
-        type: GET_LOCATION_SUCCESS,
+        type: SET_LOCATION_SUCCESS,
         location
     };
 }
 
-export function getLocationFailedAction(): GetLocationFailed {
-    return {
-        type: GET_LOCATION_FAILED
-    };
-}
-
-export function getLocation(location: Location) {
+export function setLocation(location: Location) {
     return async (dispatch: Dispatch<{}>) => {
-        dispatch(getLocationSuccessAction(location));
-        await dispatch(getWeatherDataByLocation(location));
+        dispatch(setLocationSuccessAction(location));
     };
 }

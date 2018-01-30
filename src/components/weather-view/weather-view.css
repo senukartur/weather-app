@@ -1,28 +1,14 @@
 .weather-view-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    text-align: center;
+    margin-top: 5px;
 }
-
-.weather-view-container h3 {
-    flex: 3 1 100%;
-}
-.weather-view-container button {
-    flex: 3 1 100%;
+.weather-view-container .weather-info {
+    height: 140px;
 }
 
 .weather-view-container .weather-view-temperature {
-    flex: 1 1 32%;
     font-size: 100px;
 }
 
-.weather-view-container .info {
-    flex: 1 1 32%;
-}
-
 .weather-view-container .weather-view-icon {
-    flex: 1 1 32%;
     font-size: 90px;
 }

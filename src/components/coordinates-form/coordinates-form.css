@@ -1,0 +1,9 @@
+.detect-coordinates-button-container {
+    padding: 11px 0 0 5px;
+}
+
+.weather-finder-coordinates-form .latitude-field,
+.weather-finder-coordinates-form .longitude-field
+{
+    width: 50%;
+}

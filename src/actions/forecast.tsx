@@ -1,45 +1,42 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
-import { GET_FORECAST_DATA_SUCCESS, GET_FORECAST_DATA_FAILED } from '../constants';
-import { ApplicationState, ForecastData, Coordinates } from '../interfaces';
+import { FETCH_FORECAST_SUCCESS, FETCH_FORECAST_FAILURE } from '../constants';
+import { ApplicationState, ForecastResponse, Coordinates, Forecast } from '../interfaces';
 import { OPEN_WEATHER_MAP_KEY } from '../config';
+import { forecastResponseToData } from '../scheme';
 
-export interface GetForecastDataSuccess {
-    type: GET_FORECAST_DATA_SUCCESS;
-    currentForecast: ForecastData;
+export interface FetchForecastSuccess {
+    type: FETCH_FORECAST_SUCCESS;
+    forecast: Forecast;
 }
 
-export interface GetForecastDataFailed {
-    type: GET_FORECAST_DATA_FAILED;
+export interface FetchForecastFailure {
+    type: FETCH_FORECAST_FAILURE;
     message: string;
 }
 
-export type GetForecastData = GetForecastDataSuccess | GetForecastDataFailed;
-
-export function getForecastDataSuccessAction (currentForecast: ForecastData): GetForecastDataSuccess {
+export function fetchForecastSuccessAction (forecast: Forecast): FetchForecastSuccess {
     return {
-        type: GET_FORECAST_DATA_SUCCESS,
-        currentForecast
+        type: FETCH_FORECAST_SUCCESS,
+        forecast
     };
 }
 
-export function getForecastDataFailed(message: string): GetForecastDataFailed {
+export function FetchForecastFailureAction(message: string): FetchForecastFailure {
     return {
-        type: GET_FORECAST_DATA_FAILED,
+        type: FETCH_FORECAST_FAILURE,
         message
     };
 }
 
-export function getForecast() {
+export function fetchForecast() {
     return async (dispatch: Dispatch<{}>, getState: () => ApplicationState) => {
-        try {
-            const coordinates: Coordinates = getState().coordinates;
-            const forecastResponse = await axios.get('https://api.openweathermap.org/data/2.5/forecast?lat=' +
-                coordinates.lat + '&lon=' + coordinates.lon + '&lang=en&units=metric&appid=' + OPEN_WEATHER_MAP_KEY);
-            const forecastData = await forecastResponse.data;
-            dispatch(getForecastDataSuccessAction(forecastData));
-        } catch (e) {
-            dispatch(getForecastDataFailed(e.message));
-        }
+        const coordinates: Coordinates = getState().location.coordinates;
+        const forecastResponse: ForecastResponse =
+            await (await axios.get('https://api.openweathermap.org/data/2.5/forecast?lat=' +
+            coordinates.latitude + '&lon=' + coordinates.longitude +
+                '&lang=en&units=metric&appid=' + OPEN_WEATHER_MAP_KEY)).data;
+        const forecast: Forecast = forecastResponseToData(forecastResponse);
+        dispatch(fetchForecastSuccessAction(forecast));
     };
 }

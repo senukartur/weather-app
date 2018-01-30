@@ -1,30 +1,25 @@
 import * as React from 'react';
 import { ForecastData } from '../../interfaces';
-import WeatherIcon from '../weather-icon/WeatherIcon';
+import ForecastItem from '../forecast-item/ForecastItem';
 
 import './forecast-view.css';
-import Temperature from '../temperature/Temperature';
 
 export interface Props {
-    forecast: ForecastData | null;
+    forecastData: ForecastData;
 }
 
-const ForecastView: React.SFC<Props> = ({ forecast }) => {
+const ForecastView: React.SFC<Props> = ({ forecastData }) => {
     return (
-        <div className={'forecast-view-container'}>
-            {forecast ? forecast.list.map((f, i) => {
-                if (i % 8 === 0) {
-                    return (
-                        <div className={'forecast-item'} key={i}>
-                            <WeatherIcon iconId={f.weather[0].id} className={'forecast-weather-icon'}/>
-                            <Temperature temperature={f.main.temp} className={'forecast-temperature'}/>
-                        </div>
-                    );
-
-                } else {
-                    return '';
-                }
-            }) : ''}
+        <div className="col-lg-6 col-sm-10 forecast-view-container">
+            <div className="row no-gutters">
+                {forecastData.forecast ? forecastData.forecast.list.map((forecast, i) => {
+                    if (i % 8 === 0) {
+                        return <ForecastItem forecast={forecast} className="forecast-item" key={i} />;
+                    } else {
+                        return '';
+                    }
+                }) : ''}
+            </div>
         </div>
     );
 };

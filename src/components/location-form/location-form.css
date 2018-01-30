@@ -1,0 +1,15 @@
+.weather-finder-location-form {
+    padding: 0 15px;
+}
+
+.weather-finder-location-form .country-field-container {
+    padding: 0;
+}
+
+.weather-finder-location-form .city-field {
+    margin-top: 5px;
+}
+
+.weather-finder-location-form .get-weather-button-container {
+    padding: 17px 0 0 0;
+}

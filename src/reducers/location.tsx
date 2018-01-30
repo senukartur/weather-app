@@ -1,15 +1,23 @@
-import { GET_LOCATION_SUCCESS, GET_LOCATION_FAILED } from '../constants';
-import { GetLocationAction } from '../actions/location';
+import { SET_LOCATION_SUCCESS } from '../constants';
+import { SetLocationSuccess } from '../actions/location';
 import { Location } from '../interfaces';
 
-type Action = GetLocationAction;
+type Action = SetLocationSuccess;
 
-function location(state: Location = {city: '', countryCode: ''} , action: Action): Location {
+const defaultState: Location = {
+    id: 0,
+    name: '',
+    countryCode: '',
+    coordinates: {
+        latitude: 0,
+        longitude: 0
+    }
+};
+
+function location(state: Location = defaultState , action: Action): Location {
     switch (action.type) {
-        case GET_LOCATION_SUCCESS:
+        case SET_LOCATION_SUCCESS:
             return {...action.location};
-        case GET_LOCATION_FAILED:
-            return state;
         default:
             return state;
     }

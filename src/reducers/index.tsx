@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
-import coordinates from './coordinates';
 import location from './location';
-import currentWeatherData from './currentWeatherData';
-import currentForecastData from './currentForecastData';
-import errorMessage from './errorMessage';
-import { ApplicationState } from '../interfaces';
+import weatherData from './weatherDataReducer';
+import forecastData from './forecastDataReducer';
+import { ApplicationState, Location, WeatherData, ForecastData } from '../interfaces';
 
 export default combineReducers<ApplicationState>({
-    coordinates,
     location,
-    currentWeatherData,
-    currentForecastData,
-    errorMessage
+    weatherData,
+    forecastData,
 });
+
+export const getLocation = (state: ApplicationState): Location => state.location;
+export const getWeatherData = (state: ApplicationState): WeatherData => state.weatherData;
+export const getForecastData = (state: ApplicationState): ForecastData => state.forecastData;

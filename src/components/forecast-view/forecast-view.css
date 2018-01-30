@@ -1,10 +1,16 @@
-.forecast-view-container {
-    display: flex;
+.forecast-view-container .forecast-item:not(:last-child) {
+    margin-right: 5px;
+}
+
+@media (max-width: 574px) {
+    .forecast-view-container .forecast-item:not(:last-child) {
+        margin-right: 0;
+    }
 }
 
 .forecast-view-container .forecast-item {
-    flex: 1 1 20%;
-    text-align: center;
+    margin-top: 5px;
+    padding: 0;
 }
 
 .forecast-view-container .forecast-weather-icon {

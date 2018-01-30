@@ -8,7 +8,10 @@ export interface Props {
 const Temperature: React.SFC<Props> = ({ temperature, className }) => {
     return (
         <div className={className ? className : ''}>
-            <span>{Math.floor(temperature)}</span><i className="wi wi-degrees"></i>
+            <p className="text-center">
+                <span>{Math.floor(temperature)}</span>
+                <i className="wi wi-degrees" />
+            </p>
         </div>
     );
 };

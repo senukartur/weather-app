@@ -2,27 +2,26 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import WeatherFinder, { Props } from './WeatherFinder';
-import { getCurrentUserCoordinates, getCoordinates } from '../../actions/coordinates';
-import { getLocation } from '../../actions/location';
-import { ApplicationState, Coordinates, Location } from '../../interfaces/index';
+import { setLocation } from '../../actions/location';
+import { fetchWeatherByLocation, fetchWeatherByCoordinates } from '../../actions/weather';
+import { ApplicationState, Location } from '../../interfaces';
+import { getLocation } from '../../reducers';
 
-type StateProps = Pick<Props, 'coordinates' | 'location'>;
-type DispatchProps = Pick<Props, 'handleCurrentUserCoordinates' | 'handleCustomCoordinates' | 'handleCustomLocation'>;
+type StateProps = Pick<Props, 'location'>;
+type DispatchProps = Pick<Props, 'onSetLocation' | 'onFetchWeatherByLocation' | 'onFetchWeatherByCoordinates'>;
 
 const mapStateToProps = (state: ApplicationState): StateProps => {
     return {
-        coordinates: state.coordinates,
-        location: state.location
+        location: getLocation(state)
     };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<{}>): DispatchProps => {
     return (
         {
-            handleCurrentUserCoordinates: () => dispatch(getCurrentUserCoordinates()),
-            handleCustomCoordinates: (coordinates: Coordinates) => dispatch(getCoordinates(coordinates)),
-            handleCustomLocation: (location: Location) =>
-                dispatch(getLocation(location))
+            onSetLocation: (location: Location) => dispatch(setLocation(location)),
+            onFetchWeatherByLocation: () => dispatch(fetchWeatherByLocation()),
+            onFetchWeatherByCoordinates: () => dispatch(fetchWeatherByCoordinates())
         }
     );
 };

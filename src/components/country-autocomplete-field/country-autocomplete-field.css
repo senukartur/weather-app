@@ -1,0 +1,17 @@
+.country-flag {
+    width: 25px;
+    margin-right: 10px;
+}
+
+.country-flag.selected {
+    position: relative;
+    bottom: -9px;
+}
+
+.country-flag.empty {
+    min-width: 25px;
+    height: 22px;
+}
+label.autocomplete-input-label {
+    top: 5px;
+}
