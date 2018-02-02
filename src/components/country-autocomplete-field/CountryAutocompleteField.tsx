@@ -45,6 +45,7 @@ const styles = (theme: Theme) => ({
 
 type Props  = {
     className?: string;
+    countryCode?: string;
     placeholder?: string;
     defaultCountry?: string;
     autoFocus?: boolean;
@@ -79,12 +80,24 @@ export class CountryAutocompleteField extends React.PureComponent<PropsWithStyle
         };
     }
 
-    componentDidMount() {
-        const { defaultCountry } = this.props;
+    componentWillMount() {
+        const { defaultCountry, countryCode } = this.props;
         if (defaultCountry) {
             const items: Country[] = countries.filter(country => country.code === defaultCountry);
             if (items.length === 1) {
-                this.setState({country: items[0]});
+                this.setState({
+                    value: items[0].name,
+                    country: items[0]
+                });
+            }
+        }
+        if (countryCode) {
+            const items: Country[] = countries.filter(country => country.code === countryCode);
+            if (items.length === 1) {
+                this.setState({
+                    value: items[0].name,
+                    country: items[0]
+                });
             }
         }
     }
@@ -193,7 +206,7 @@ export class CountryAutocompleteField extends React.PureComponent<PropsWithStyle
 
         const { error, errorMessage } = this.props;
 
-        const items: Country[] = this.getSuggestions(inputProps.value);
+        const items: Country[] = this.getSuggestions(value);
 
         const countryFlag: React.ReactNode =
             items.length === 1 ?

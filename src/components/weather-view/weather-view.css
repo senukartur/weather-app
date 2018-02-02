@@ -12,3 +12,13 @@
 .weather-view-container .weather-view-icon {
     font-size: 90px;
 }
+.favorite-button-container {
+    height: 0;
+}
+
+.favorite-button-container .favorite-button {
+    position: relative;
+    z-index: 1000;
+    top: 5px;
+    right: 20px;
+}

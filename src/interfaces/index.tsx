@@ -1,19 +1,18 @@
 export interface ApplicationState {
     location: Location;
+    fetchingWeather: boolean;
+    fetchingForecast: boolean;
     weatherData: WeatherData;
     forecastData: ForecastData;
     favoriteCities: number[];
+    errorMessage: string;
 }
 
 export interface WeatherData {
-    weather: Weather | null;
-    fetching: boolean;
-    error: string | null;
+    [key: number]: Weather;
 }
 export interface ForecastData {
-    forecast: Forecast | null;
-    fetching: boolean;
-    error: string | null;
+    [key: number]: Forecast;
 }
 
 export interface Coordinates {
@@ -93,7 +92,7 @@ export interface ForecastResponse {
 }
 
 export interface Location {
-    id?: number;
+    id: number;
     name: string;
     countryCode: string;
     coordinates: Coordinates;
@@ -121,6 +120,7 @@ export interface Forecast {
     location: Location;
     list: ForecastItem[];
 }
+
 export interface Wind {
     speed: number;
     deg: number;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import WeatherFinder, { Props } from './WeatherFinder';
 import { setLocation } from '../../actions/location';
-import { fetchWeatherByLocation, fetchWeatherByCoordinates } from '../../actions/weather';
+import { fetchWeatherByLocation, fetchWeatherByCoordinates } from '../../actions/weatherData';
 import { ApplicationState, Location } from '../../interfaces';
 import { getLocation } from '../../reducers';
 
@@ -20,8 +20,8 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>): DispatchProps => {
     return (
         {
             onSetLocation: (location: Location) => dispatch(setLocation(location)),
-            onFetchWeatherByLocation: () => dispatch(fetchWeatherByLocation()),
-            onFetchWeatherByCoordinates: () => dispatch(fetchWeatherByCoordinates())
+            onFetchWeatherByLocation: () => dispatch(fetchWeatherByLocation(true)),
+            onFetchWeatherByCoordinates: () => dispatch(fetchWeatherByCoordinates(true))
         }
     );
 };

@@ -74,11 +74,11 @@ class LocationForm extends React.PureComponent<Props, State> {
     }
 
     render() {
-        const { city, isCityValid, isCountryValid } = this.state;
+        const { city, countryCode, isCityValid, isCountryValid } = this.state;
 
         return (
             <form
-                className="row weather-finder-location-form"
+                className="row no-gutters weather-finder-location-form"
                 onSubmit={this.handleSubmit}
             >
                 <TextField
@@ -94,6 +94,7 @@ class LocationForm extends React.PureComponent<Props, State> {
                 <div className="col-sm-5 country-field-container" >
                     <CountryAutocompleteField
                         className="country-field"
+                        countryCode={countryCode}
                         onSelect={this.handleSelectCountry}
                         onChange={this.handleChangeCountry}
                         error={!isCountryValid}

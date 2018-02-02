@@ -19,6 +19,7 @@ class WeatherFinder extends React.PureComponent<Props, {}> {
 
     handleFetchWeatherByLocation = (city: string, countryCode: string) => {
         this.props.onSetLocation({
+            id: 0,
             name: city,
             countryCode: countryCode,
             coordinates: {
@@ -32,6 +33,7 @@ class WeatherFinder extends React.PureComponent<Props, {}> {
 
     handleFetchWeatherByCoordinates = (coordinates: Coordinates) => {
         this.props.onSetLocation({
+            id: 0,
             name: '',
             countryCode: '',
             coordinates: coordinates

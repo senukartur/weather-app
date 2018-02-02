@@ -1,13 +1,19 @@
-import { connect } from 'react-redux';
+import { connect, MapStateToProps } from 'react-redux';
 import ForecastView, { Props } from './ForecastView';
 import { ApplicationState } from '../../interfaces';
-import { getForecastData } from '../../reducers';
+import { getForecastByCityId, getFetchingForecast } from '../../reducers';
 
-type StateProps = Pick<Props, 'forecastData'>;
+type OwnProps = {
+    cityId: number
+};
 
-const mapStateToProps = (state: ApplicationState): StateProps => {
+type StateProps = Pick<Props, 'forecast' | 'fetchingForecast'>;
+
+const mapStateToProps: MapStateToProps<StateProps, OwnProps> =
+    (state: ApplicationState, ownProps: OwnProps): StateProps => {
     return {
-        forecastData: getForecastData(state)
+        forecast: getForecastByCityId(state, ownProps.cityId),
+        fetchingForecast: getFetchingForecast(state)
     };
 };
 

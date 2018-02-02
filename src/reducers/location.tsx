@@ -14,13 +14,17 @@ const defaultState: Location = {
     }
 };
 
-function location(state: Location = defaultState , action: Action): Location {
+const location = (state: Location = defaultState , action: Action): Location => {
     switch (action.type) {
         case SET_LOCATION_SUCCESS:
             return {...action.location};
         default:
             return state;
     }
-}
+};
 
 export default location;
+
+export const getLocationId = (state: Location) => {
+    return state.id;
+};

@@ -4,7 +4,7 @@ import { FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAILURE, FETCH_WEATHER_START } fro
 import { WeatherResponse, ApplicationState, Coordinates, Location, Weather } from '../interfaces';
 import { GOOGLE_API_KEY, OPEN_WEATHER_MAP_KEY } from '../config';
 import { setLocationSuccessAction } from './location';
-import { fetchForecast } from './forecast';
+import { fetchForecastByCoordinates, fetchForecastByLocation, fetchForecastByCityId } from './forecastData';
 import { weatherResponseToData } from '../scheme';
 
 export interface FetchWeatherSuccess {
@@ -41,7 +41,7 @@ export function fetchWeatherStartAction(): FetchWeatherStart {
     };
 }
 
-export function fetchWeatherByCoordinates() {
+export function fetchWeatherByCoordinates(setLocation: boolean) {
     return async (dispatch: Dispatch<{}>, getState: () => ApplicationState) => {
         let location: Location = getState().location;
         let coordinates: Coordinates = location.coordinates;
@@ -74,14 +74,22 @@ export function fetchWeatherByCoordinates() {
                 '&lang=en&units=metric&appid=' + OPEN_WEATHER_MAP_KEY)).data;
             let weather: Weather = weatherResponseToData(weatherResponse);
 
-            dispatch(fetchWeatherSuccessAction(weather));
-            let newLocation: Location = {...location};
-            newLocation.countryCode = weather.location.countryCode;
-            newLocation.name = weather.location.name;
-            newLocation.id = weather.location.id;
-            dispatch(setLocationSuccessAction(newLocation));
-            await dispatch(fetchForecast());
+            if (!weather.location.countryCode || !weather.location.name || !weather.location.id) {
+                throw Error();
+            }
 
+            dispatch(fetchWeatherSuccessAction(weather));
+
+            if (setLocation) {
+                let newLocation: Location = {...location};
+                newLocation.countryCode = weather.location.countryCode;
+                newLocation.name = weather.location.name;
+                newLocation.id = weather.location.id;
+
+                dispatch(setLocationSuccessAction(newLocation));
+            }
+
+            await dispatch(fetchForecastByLocation());
         } catch (error) {
             try {
                 let weatherResponse: WeatherResponse =
@@ -91,14 +99,22 @@ export function fetchWeatherByCoordinates() {
                         '&lang=en&units=metric&appid=' + OPEN_WEATHER_MAP_KEY)).data;
 
                 let weather: Weather = weatherResponseToData(weatherResponse);
+
+                if (!weather.location.countryCode || !weather.location.name || !weather.location.id) {
+                    throw Error();
+                }
+
                 dispatch(fetchWeatherSuccessAction(weather));
 
-                let newLocation: Location = {...location};
-                newLocation.countryCode = weather.location.countryCode;
-                newLocation.name = weather.location.name;
-                newLocation.id = weather.location.id;
-                dispatch(setLocationSuccessAction(newLocation));
-                await dispatch(fetchForecast());
+                if (setLocation) {
+                    let newLocation: Location = {...location};
+                    newLocation.countryCode = weather.location.countryCode;
+                    newLocation.name = weather.location.name;
+                    newLocation.id = weather.location.id;
+
+                    dispatch(setLocationSuccessAction(newLocation));
+                }
+                await dispatch(fetchForecastByCoordinates());
             } catch (error) {
                 dispatch(fetchWeatherFailureAction(`Can't find weather for these coordinates!`));
             }
@@ -106,7 +122,7 @@ export function fetchWeatherByCoordinates() {
     };
 }
 
-export function fetchWeatherByLocation() {
+export function fetchWeatherByLocation(setLocation: boolean) {
     return async (dispatch: Dispatch<{}>, getState: () => ApplicationState) => {
         try {
             let location: Location = getState().location;
@@ -119,12 +135,33 @@ export function fetchWeatherByLocation() {
 
             let weather: Weather = weatherResponseToData(weatherResponse);
             dispatch(fetchWeatherSuccessAction(weather));
-            let newLocation: Location = {...location};
-            newLocation.coordinates = weather.location.coordinates;
-            dispatch(setLocationSuccessAction(newLocation));
-            await dispatch(fetchForecast());
+
+            if (setLocation) {
+                let newLocation: Location = {...location};
+                newLocation.id = weather.location.id;
+                newLocation.coordinates = weather.location.coordinates;
+                dispatch(setLocationSuccessAction(newLocation));
+            }
+
+            await dispatch(fetchForecastByLocation());
         } catch (error) {
             dispatch(fetchWeatherFailureAction(`Can't find weather for this location!`));
+        }
+    };
+}
+
+export function fetchWeatherByCityId(cityId: number) {
+    return async (dispatch: Dispatch<{}>) => {
+        try {
+            let weatherResponse: WeatherResponse =
+                await (await axios.get(
+                    'https://api.openweathermap.org/data/2.5/weather?id=' + cityId + ',' +
+                    '&lang=en&units=metric&appid=' + OPEN_WEATHER_MAP_KEY)).data;
+            let weather: Weather = weatherResponseToData(weatherResponse);
+            dispatch(fetchWeatherSuccessAction(weather));
+            await  dispatch(fetchForecastByCityId(cityId));
+        } catch (error) {
+            dispatch(fetchWeatherFailureAction(`Can't find weather for this city id!`));
         }
     };
 }

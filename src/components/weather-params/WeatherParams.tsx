@@ -9,7 +9,7 @@ export interface Props {
 const WeatherParams: React.SFC<Props> = ({wind, weatherParams}) => {
     return (
         <React.Fragment>
-            <div className="col-sm-3">
+            <div className="col-3">
                 <Tooltip title="Wind direction" placement="top">
                     <div>
                         <i className={`wi wi-wind from-${Math.floor(wind.deg)}-deg`}/>
@@ -20,7 +20,7 @@ const WeatherParams: React.SFC<Props> = ({wind, weatherParams}) => {
                     </div>
                 </Tooltip>
             </div>
-            <div className="col-sm-3">
+            <div className="col-3">
                 <Tooltip title="Wind speed" placement="top">
                     <div>
                         <i className="wi wi-strong-wind" />
@@ -28,7 +28,7 @@ const WeatherParams: React.SFC<Props> = ({wind, weatherParams}) => {
                     </div>
                 </Tooltip>
             </div>
-            <div className="col-sm-3">
+            <div className="col-3">
                 <Tooltip title="Pressure" placement="top">
                     <div>
                         <i className="wi wi-barometer" />
@@ -36,7 +36,7 @@ const WeatherParams: React.SFC<Props> = ({wind, weatherParams}) => {
                     </div>
                 </Tooltip>
             </div>
-            <div className="col-sm-3">
+            <div className="col-3">
                 <Tooltip title="Humidity" placement="top">
                     <div>
                         <i className="wi wi-humidity" />

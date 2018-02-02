@@ -1,46 +1,22 @@
-import { combineReducers } from 'redux';
 import { Weather, WeatherData } from '../interfaces';
-import { FetchWeatherSuccess, FetchWeatherFailure, FetchWeatherStart } from '../actions/weather';
-import { FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAILURE, FETCH_WEATHER_START } from '../constants';
+import { FetchWeatherSuccess, FetchWeatherFailure, FetchWeatherStart } from '../actions/weatherData';
+import { FETCH_WEATHER_SUCCESS } from '../constants';
 
 type Action = FetchWeatherSuccess | FetchWeatherFailure | FetchWeatherStart;
 
-function weather(state: Weather | null = null, action: Action ): Weather | null {
+function weatherData(state: WeatherData = {}, action: Action ): WeatherData {
     switch (action.type) {
         case FETCH_WEATHER_SUCCESS:
-            return {...action.weather};
+            const cityId: number = action.weather.location.id;
+
+            return {...state, [cityId]: action.weather};
         default:
             return state;
     }
 }
 
-function fetching(state: boolean = false, action: Action ): boolean {
-    switch (action.type) {
-        case FETCH_WEATHER_START:
-            return true;
-        case FETCH_WEATHER_SUCCESS:
-        case FETCH_WEATHER_FAILURE:
-            return false;
-        default:
-            return state;
-    }
-}
-
-function error(state: string | null = null, action: Action ): string | null {
-    switch (action.type) {
-        case FETCH_WEATHER_SUCCESS:
-            return null;
-        case FETCH_WEATHER_FAILURE:
-            return action.message;
-        default:
-            return state;
-    }
-}
-
-const weatherData = combineReducers<WeatherData>({
-    weather,
-    fetching,
-    error
-});
+export const getWeatherByCityId = (state: WeatherData, id: number): Weather | null => {
+    return state[id] || null;
+};
 
 export default weatherData;
