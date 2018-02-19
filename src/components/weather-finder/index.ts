@@ -1,11 +1,14 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-
 import WeatherFinder, { Props } from './WeatherFinder';
-import { setLocation } from '../../actions/location';
-import { fetchWeatherByLocation, fetchWeatherByCoordinates } from '../../actions/weatherData';
-import { ApplicationState, Location } from '../../interfaces';
-import { getLocation } from '../../reducers';
+import {
+    ApplicationState,
+    Location,
+    setLocation,
+    fetchWeatherByLocation,
+    fetchWeatherByCoordinates
+} from '../../ducks';
+import { getLocation } from '../../selectors';
 
 type StateProps = Pick<Props, 'location'>;
 type DispatchProps = Pick<Props, 'onSetLocation' | 'onFetchWeatherByLocation' | 'onFetchWeatherByCoordinates'>;
@@ -27,4 +30,5 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>): DispatchProps => {
 };
 
 const WeatherFinderContainer = connect(mapStateToProps, mapDispatchToProps)(WeatherFinder);
+
 export default WeatherFinderContainer;

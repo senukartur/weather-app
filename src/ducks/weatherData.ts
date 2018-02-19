@@ -1,11 +1,20 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
-import { FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAILURE, FETCH_WEATHER_START } from '../constants';
-import { WeatherResponse, ApplicationState, Coordinates, Location, Weather } from '../interfaces';
+import { Coordinates, Location } from './location';
+import { ApplicationState, WeatherData } from './index';
 import { GOOGLE_API_KEY, OPEN_WEATHER_MAP_KEY } from '../config';
 import { setLocationSuccessAction } from './location';
 import { fetchForecastByCoordinates, fetchForecastByLocation, fetchForecastByCityId } from './forecastData';
 import { weatherResponseToData } from '../scheme';
+
+export const FETCH_WEATHER_START = 'FETCH_WEATHER_START';
+export type FETCH_WEATHER_START = typeof FETCH_WEATHER_START;
+
+export const FETCH_WEATHER_SUCCESS = 'FETCH_WEATHER_SUCCESS';
+export type FETCH_WEATHER_SUCCESS = typeof FETCH_WEATHER_SUCCESS;
+
+export const FETCH_WEATHER_FAILURE = 'FETCH_WEATHER_FAILURE';
+export type FETCH_WEATHER_FAILURE = typeof FETCH_WEATHER_FAILURE;
 
 export interface FetchWeatherSuccess {
     type: FETCH_WEATHER_SUCCESS;
@@ -41,6 +50,69 @@ export function fetchWeatherStartAction(): FetchWeatherStart {
     };
 }
 
+export interface WeatherResponse {
+    coord: {lat: number; lon: number};
+    weather: Array<{
+        id: number;
+        main: string;
+        description: string;
+        icon: string;
+    }>;
+    base: string;
+    main: {
+        temp: number;
+        pressure: number;
+        humidity: number;
+        temp_min: number;
+        temp_max: number;
+    };
+    wind: {
+        speed: number;
+        deg: number;
+    };
+    clouds: {
+        all: number;
+    };
+    dt: number;
+    sys: {
+        type: number;
+        id: number;
+        message: number;
+        country: string;
+        sunrise: number;
+        sunset: number;
+    };
+    id: number;
+    name: string;
+    cod: number;
+}
+
+export interface Weather {
+    id: number;
+    main: string;
+    description: string;
+    icon: string;
+    params: WeatherParams;
+    wind: Wind;
+    clouds: {
+        all: number;
+    };
+    location: Location;
+}
+
+export interface WeatherParams {
+    temperature: number;
+    temperatureMin: number;
+    temperatureMax: number;
+    pressure: number;
+    humidity: number;
+}
+
+export interface Wind {
+    speed: number;
+    deg: number;
+}
+
 export function fetchWeatherByCoordinates(setLocation: boolean) {
     return async (dispatch: Dispatch<{}>, getState: () => ApplicationState) => {
         let location: Location = getState().location;
@@ -50,7 +122,7 @@ export function fetchWeatherByCoordinates(setLocation: boolean) {
         try {
             let googleResponse =
                 await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
-                coordinates.latitude + ',' + coordinates.longitude + '&language=en&key=' + GOOGLE_API_KEY);
+                    coordinates.latitude + ',' + coordinates.longitude + '&language=en&key=' + GOOGLE_API_KEY);
             let googleData = await googleResponse.data;
 
             let locationByGoogle = googleData.results[0].address_components.reduce(
@@ -69,9 +141,9 @@ export function fetchWeatherByCoordinates(setLocation: boolean) {
 
             let weatherResponse: WeatherResponse =
                 await (await axios.get(
-                'https://api.openweathermap.org/data/2.5/weather?q=' +
-                locationByGoogle.city + ',' + locationByGoogle.countryCode +
-                '&lang=en&units=metric&appid=' + OPEN_WEATHER_MAP_KEY)).data;
+                    'https://api.openweathermap.org/data/2.5/weather?q=' +
+                    locationByGoogle.city + ',' + locationByGoogle.countryCode +
+                    '&lang=en&units=metric&appid=' + OPEN_WEATHER_MAP_KEY)).data;
             let weather: Weather = weatherResponseToData(weatherResponse);
 
             if (!weather.location.countryCode || !weather.location.name || !weather.location.id) {
@@ -165,3 +237,18 @@ export function fetchWeatherByCityId(cityId: number) {
         }
     };
 }
+
+type Action = FetchWeatherSuccess | FetchWeatherFailure | FetchWeatherStart;
+
+function weatherData(state: WeatherData = {}, action: Action ): WeatherData {
+    switch (action.type) {
+        case FETCH_WEATHER_SUCCESS:
+            const cityId: number = action.weather.location.id;
+
+            return {...state, [cityId]: action.weather};
+        default:
+            return state;
+    }
+}
+
+export default weatherData;

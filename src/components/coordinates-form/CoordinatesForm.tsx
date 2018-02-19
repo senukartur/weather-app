@@ -2,7 +2,7 @@ import * as React from 'react';
 import TextField from 'material-ui/TextField';
 import Tooltip from 'material-ui//Tooltip';
 import Button from 'material-ui/Button';
-import { Coordinates } from '../../interfaces';
+import { Coordinates } from '../../ducks';
 
 import './coordinates-form.css';
 

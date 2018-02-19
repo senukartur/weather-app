@@ -2,12 +2,16 @@ import {
     FETCH_WEATHER_START,
     FETCH_WEATHER_FAILURE,
     FETCH_WEATHER_SUCCESS,
+} from './weatherData';
+
+import {
     FETCH_FORECAST_START,
     FETCH_FORECAST_SUCCESS,
     FETCH_FORECAST_FAILURE
-} from '../constants';
-import { FetchWeatherStart, FetchWeatherSuccess, FetchWeatherFailure } from '../actions/weatherData';
-import { FetchForecastStart, FetchForecastSuccess, FetchForecastFailure } from '../actions/forecastData';
+} from './forecastData';
+
+import { FetchWeatherStart, FetchWeatherSuccess, FetchWeatherFailure } from './weatherData';
+import { FetchForecastStart, FetchForecastSuccess, FetchForecastFailure } from './forecastData';
 
 type Action =
     FetchWeatherStart |

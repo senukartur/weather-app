@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import Weather, { Props } from './Wethaer';
-import { ApplicationState } from '../../interfaces';
-import { getLocationId } from '../../reducers';
+import Weather, { Props } from './Weather';
+import { ApplicationState } from '../../ducks';
+import { getLocationId } from '../../selectors';
 
 type StateProps = Pick<Props, 'cityId'>;
 

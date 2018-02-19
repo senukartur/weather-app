@@ -1,7 +1,7 @@
 import { connect, MapStateToProps } from 'react-redux';
 import FavoriteCityView, { Props } from './FavoriteCityView';
-import { ApplicationState } from '../../interfaces';
-import { getWeatherByCityId } from '../../reducers';
+import { ApplicationState } from '../../ducks';
+import { getWeatherByCityId } from '../../selectors';
 
 type StateProps = Pick<Props, 'weather'>;
 type OwnProps = {

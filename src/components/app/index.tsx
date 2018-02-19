@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import App , { Props } from './App';
-import { ApplicationState } from '../../interfaces';
-import { getErrorMessage } from '../../reducers';
+import { ApplicationState } from '../../ducks';
+import { getErrorMessage } from '../../selectors';
 
 type StateProps = Pick<Props, 'errorMessage'>;
 

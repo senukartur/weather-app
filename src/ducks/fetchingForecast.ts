@@ -1,5 +1,9 @@
-import { FETCH_FORECAST_START, FETCH_FORECAST_SUCCESS, FETCH_FORECAST_FAILURE } from '../constants';
-import { FetchForecastStart, FetchForecastSuccess, FetchForecastFailure } from '../actions/forecastData';
+import {
+    FETCH_FORECAST_START,
+    FETCH_FORECAST_SUCCESS,
+    FETCH_FORECAST_FAILURE
+} from './forecastData';
+import { FetchForecastStart, FetchForecastSuccess, FetchForecastFailure } from './forecastData';
 
 type Action = FetchForecastStart | FetchForecastSuccess | FetchForecastFailure;
 

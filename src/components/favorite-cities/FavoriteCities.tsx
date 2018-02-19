@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import FavoriteBorder from 'material-ui-icons/FavoriteBorder';
 import Paper from 'material-ui/Paper';
-import FavoriteCityViewContainer from '../favorit-city-view/FavoriteCityViewContainer';
+import FavoriteCityViewContainer from '../favorit-city-view';
 
 export interface Props {
     favoriteCities: number[];

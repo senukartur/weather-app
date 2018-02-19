@@ -1,9 +1,8 @@
 import { Dispatch } from 'redux';
 import { connect, MapStateToProps } from 'react-redux';
 import WeatherView, { Props } from './WeatherView';
-import { ApplicationState } from '../../interfaces';
-import { checkFavorite, getWeatherByCityId, getFetchingWeather } from '../../reducers';
-import { addFavoriteCityAction, removeFavoriteCity } from '../../actions/favoriteCities';
+import { ApplicationState, addFavoriteCityAction, removeFavoriteCity } from '../../ducks';
+import { checkFavorite, getWeatherByCityId, getFetchingWeather } from '../../selectors';
 
 type StateProps = Pick<Props, 'weather' | 'isFavorite' | 'fetchingWeather'>;
 type DispatchProps = Pick<Props, 'addToFavorite' | 'removeFromFavorite'>;

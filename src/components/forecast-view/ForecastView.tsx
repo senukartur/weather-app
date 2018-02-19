@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Forecast } from '../../interfaces';
+import { Forecast } from '../../ducks';
 import ForecastItem from '../forecast-item/ForecastItem';
 
 import './forecast-view.css';

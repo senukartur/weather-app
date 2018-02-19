@@ -1,4 +1,5 @@
-import { WeatherResponse, Weather, ForecastResponse, Forecast, ForecastItem } from '../interfaces';
+import { WeatherResponse, Weather } from '../ducks/weatherData';
+import { ForecastResponse, Forecast, ForecastItem } from '../ducks/forecastData';
 
 export function weatherResponseToData(weatherResponse: WeatherResponse): Weather {
     return {

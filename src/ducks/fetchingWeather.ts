@@ -2,9 +2,9 @@ import {
     FETCH_WEATHER_START,
     FETCH_WEATHER_FAILURE,
     FETCH_WEATHER_SUCCESS
-} from '../constants';
+} from './weatherData';
 
-import { FetchWeatherStart, FetchWeatherSuccess, FetchWeatherFailure } from '../actions/weatherData';
+import { FetchWeatherStart, FetchWeatherSuccess, FetchWeatherFailure } from './weatherData';
 
 type Action = FetchWeatherStart | FetchWeatherSuccess | FetchWeatherFailure;
 

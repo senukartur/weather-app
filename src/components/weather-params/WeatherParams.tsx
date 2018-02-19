@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Tooltip from 'material-ui/Tooltip';
-import { Wind, WeatherParams } from '../../interfaces';
+import { Wind, WeatherParams } from '../../ducks';
 export interface Props {
     wind: Wind;
     weatherParams: WeatherParams;

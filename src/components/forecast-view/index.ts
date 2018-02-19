@@ -1,7 +1,7 @@
 import { connect, MapStateToProps } from 'react-redux';
 import ForecastView, { Props } from './ForecastView';
-import { ApplicationState } from '../../interfaces';
-import { getForecastByCityId, getFetchingForecast } from '../../reducers';
+import { ApplicationState } from '../../ducks';
+import { getForecastByCityId, getFetchingForecast } from '../../selectors';
 
 type OwnProps = {
     cityId: number

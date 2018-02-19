@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import FavoriteCities, { Props } from './FavoriteCities';
-import { ApplicationState } from '../../interfaces';
-import { getFavoriteCities } from '../../reducers';
+import { ApplicationState } from '../../ducks';
+import { getFavoriteCities } from '../../selectors';
 
 type StateProps = Pick<Props, 'favoriteCities'>;
 

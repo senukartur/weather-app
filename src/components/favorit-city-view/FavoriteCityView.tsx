@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Weather } from '../../interfaces';
-import WeatherViewContainer from '../weather-view/WeatherViewContainer';
-import ForecastViewContainer from '../forecast-view/ForecastViewContainer';
+import { Weather } from '../../ducks';
+import WeatherViewContainer from '../weather-view';
+import ForecastViewContainer from '../forecast-view';
 
 export interface Props {
     cityId: number;

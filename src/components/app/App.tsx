@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from '../header/Header';
-import FavoriteCitiesContainer from '../favorite-cities/FavoriteCitiesContainer';
-import WeatherContainer from '../weather/WeatherContainer';
+import FavoriteCitiesContainer from '../favorite-cities';
+import WeatherContainer from '../weather';
 import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';

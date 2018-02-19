@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Coordinates, Location } from '../../interfaces';
+import { Coordinates, Location } from '../../ducks';
 import CoordinatesForm from '../coordinates-form/CoordinatesForm';
 import LocationFrom from '../location-form/LocationForm';
 

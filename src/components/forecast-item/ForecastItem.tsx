@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import Paper from 'material-ui/Paper';
 import WeatherIcon from '../weather-icon/WeatherIcon';
 import Temperature from '../temperature/Temperature';
-import { ForecastItem } from '../../interfaces';
+import { ForecastItem } from '../../ducks';
 
 export interface Props {
     forecast: ForecastItem;

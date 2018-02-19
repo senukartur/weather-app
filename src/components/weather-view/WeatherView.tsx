@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Weather } from '../../interfaces';
+import { Weather } from '../../ducks';
 import { CircularProgress } from 'material-ui/Progress';
 import Paper from 'material-ui/Paper';
 import Temperature from '../temperature/Temperature';
